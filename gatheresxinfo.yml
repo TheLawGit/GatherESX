@@ -2,26 +2,25 @@
 - name: Create RHEL 8.5 VM on ESX
   hosts: all
   tasks:
+    - name: collect a list of the datacenters
+      vmware.vmware_rest.vcenter_datacenter_info:
+      register: my_datacenters
   
-  - name: collect a list of the datacenters
-  vmware.vmware_rest.vcenter_datacenter_info:
-  register: my_datacenters
-  
-  - name: Build a list of all the clusters
-  vmware.vmware_rest.vcenter_cluster_info:
-  register: all_the_clusters
+    - name: Build a list of all the clusters
+      vmware.vmware_rest.vcenter_cluster_info:
+      register: all_the_clusters
 
-  - name: Retrieve a list of all the datastores
-  vmware.vmware_rest.vcenter_datastore_info:
-  register: my_datastores
+    - name: Retrieve a list of all the datastores
+      vmware.vmware_rest.vcenter_datastore_info:
+      register: my_datastores
   
-  - name: Build a list of all the folders
-  vmware.vmware_rest.vcenter_folder_info:
-  register: my_folders
+    - name: Build a list of all the folders
+      vmware.vmware_rest.vcenter_folder_info:
+      register: my_folders
   
-  - name: Build a list of all the folders with the type VIRTUAL_MACHINE and called vm
-  vmware.vmware_rest.vcenter_folder_info:
-    filter_type: VIRTUAL_MACHINE
-    filter_names:
-    - vm
-  register: my_folders
+    - name: Build a list of all the folders with the type VIRTUAL_MACHINE and called vm
+      vmware.vmware_rest.vcenter_folder_info:
+        filter_type: VIRTUAL_MACHINE
+        filter_names:
+        - vm
+      register: my_folders
